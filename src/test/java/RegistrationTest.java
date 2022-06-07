@@ -2,7 +2,6 @@ import PageObject.LoginBurgerPage;
 import PageObject.MainPageBurger;
 import PageObject.RegisterBurgerPage;
 import com.codeborne.selenide.Condition;
-import com.codeborne.selenide.WebDriverRunner;
 import com.github.javafaker.Faker;
 import io.qameta.allure.Description;
 import io.qameta.allure.junit4.DisplayName;
@@ -21,7 +20,7 @@ public class RegistrationTest extends TestParent {
     @Description("Успешная регистрация")
     public void successRegistrationTest() {
         //открывается страница и создается экземпляр класса страницы
-        MainPageBurger mainPageBurger = open("https://stellarburgers.nomoreparties.site/", PageObject.MainPageBurger.class);
+        MainPageBurger mainPageBurger = open(urlMainPage, PageObject.MainPageBurger.class);
 
         //Кликнуть кнопку "Личный кабинет"
         LoginBurgerPage loginBurgerPage = mainPageBurger.clickButtonPersonalAreaLogPage();
@@ -32,16 +31,10 @@ public class RegistrationTest extends TestParent {
         //регистрация пользователя
         loginBurgerPage = registerBurgerPage.registrationUser(name, email, password);
 
-        //Нажимаем на кнопку "Войти"
-        loginBurgerPage.getButtonIn().shouldBe(Condition.visible);
-        try{
-            Thread.sleep(10000);
-        }
-        catch (Exception e){}
+        loginBurgerPage.getButtonLogin().shouldBe(Condition.visible);
 
         //проверка, что открыта нужная страница
-        Assert.assertEquals(loginBurgerPage.getUrl(), "https://stellarburgers.nomoreparties.site/login");
-        WebDriverRunner.driver().close();
+        Assert.assertEquals(urlLoginPage, loginBurgerPage.getUrl());
     }
 
     @Test
@@ -49,7 +42,7 @@ public class RegistrationTest extends TestParent {
     @Description("Ошибка для некорректного пароля")
     public void uncorrectPasswordRegistrationTest() {
         //открывается страница и создается экземпляр класса страницы
-        MainPageBurger mainPageBurger = open("https://stellarburgers.nomoreparties.site/", PageObject.MainPageBurger.class);
+        MainPageBurger mainPageBurger = open(urlMainPage, PageObject.MainPageBurger.class);
 
         //Кликнуть кнопку "Личный кабинет"
         LoginBurgerPage loginBurgerPage = mainPageBurger.clickButtonPersonalAreaLogPage();
@@ -62,6 +55,5 @@ public class RegistrationTest extends TestParent {
 
         //Появление текста о некорректном вводе пароля
         registerBurgerPage.getIncorrectPassword().shouldHave(Condition.exactText("Некорректный пароль"));
-        WebDriverRunner.driver().close();
     }
 }

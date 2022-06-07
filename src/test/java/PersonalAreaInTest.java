@@ -1,4 +1,3 @@
-import PageObject.AccountProfilePage;
 import PageObject.LoginBurgerPage;
 import PageObject.MainPageBurger;
 import io.qameta.allure.Description;
@@ -14,13 +13,12 @@ public class PersonalAreaInTest extends TestParent {
     @Description("переход по клику на «Личный кабинет»")
     public void personalAreaInTest() {
         //открывается страница и создается экземпляр класса страницы
-        MainPageBurger mainPageBurger = open("https://stellarburgers.nomoreparties.site/", PageObject.MainPageBurger.class);
+        MainPageBurger mainPageBurger = open(urlMainPage, PageObject.MainPageBurger.class);
 
         //Кликнуть кнопку "Личный кабинет"
         LoginBurgerPage loginBurgerPage = mainPageBurger.clickButtonPersonalAreaLogPage();
 
         //проверка, что открыта нужная страница
-        Assert.assertEquals(loginBurgerPage.getUrl(), "https://stellarburgers.nomoreparties.site/login");
-
+        Assert.assertEquals(loginBurgerPage.getUrl(), urlLoginPage);
     }
 }

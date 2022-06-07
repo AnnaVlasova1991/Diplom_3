@@ -4,7 +4,7 @@ import PageObject.MainPageBurger;
 import PageObject.RegisterBurgerPage;
 import client.StepsForDelete;
 import client.StepsForPost;
-import com.codeborne.selenide.WebDriverRunner;
+import com.codeborne.selenide.Condition;
 import com.github.javafaker.Faker;
 import io.qameta.allure.Description;
 import io.qameta.allure.junit4.DisplayName;
@@ -12,7 +12,6 @@ import io.restassured.response.Response;
 import model.UserCreate;
 import org.junit.After;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 
 import static com.codeborne.selenide.Selenide.open;
@@ -41,22 +40,18 @@ public class LoginTest extends TestParent {
         accessToken = response.body().as(UserCreate.class).getAccessToken();
 
         //открывается страница и создается экземпляр класса страницы
-        MainPageBurger mainPageBurger = open("https://stellarburgers.nomoreparties.site/", PageObject.MainPageBurger.class);
+        MainPageBurger mainPageBurger = open(urlMainPage, PageObject.MainPageBurger.class);
 
         //кликнуть по кнопке "Войти в аккаунт"
         LoginBurgerPage loginBurgerPage = mainPageBurger.clickButtonSignIn();
 
         //авторизация пользователя
         mainPageBurger = loginBurgerPage.loginUser(email, password);
-
-        try{
-            Thread.sleep(10000);
-        }
-        catch (Exception e){}
+        mainPageBurger.getDoOrderButton().shouldBe(Condition.visible);
 
         //проверка, что открыта нужная страница
-        Assert.assertEquals(mainPageBurger.getUrl(), "https://stellarburgers.nomoreparties.site/");
-        WebDriverRunner.driver().close();
+        Assert.assertEquals(mainPageBurger.getUrl(), urlMainPage);
+
     }
 
     @Test
@@ -70,22 +65,18 @@ public class LoginTest extends TestParent {
         accessToken = response.body().as(UserCreate.class).getAccessToken();
 
         //открывается страница и создается экземпляр класса страницы
-        MainPageBurger mainPageBurger = open("https://stellarburgers.nomoreparties.site/", PageObject.MainPageBurger.class);
+        MainPageBurger mainPageBurger = open(urlMainPage, PageObject.MainPageBurger.class);
 
         //Кликнуть кнопку "Личный кабинет"
         LoginBurgerPage loginBurgerPage = mainPageBurger.clickButtonPersonalAreaLogPage();
 
         //авторизация пользователя
         mainPageBurger = loginBurgerPage.loginUser(email, password);
-
-        try{
-            Thread.sleep(10000);
-        }
-        catch (Exception e){}
+        mainPageBurger.getDoOrderButton().shouldBe(Condition.visible);
 
         //проверка, что открыта нужная страница
-        Assert.assertEquals(mainPageBurger.getUrl(), "https://stellarburgers.nomoreparties.site/");
-        WebDriverRunner.driver().close();
+        Assert.assertEquals(mainPageBurger.getUrl(), urlMainPage);
+
     }
 
     @Test
@@ -99,7 +90,7 @@ public class LoginTest extends TestParent {
         accessToken = response.body().as(UserCreate.class).getAccessToken();
 
         //открывается страница и создается экземпляр класса страницы
-        MainPageBurger mainPageBurger = open("https://stellarburgers.nomoreparties.site/", PageObject.MainPageBurger.class);
+        MainPageBurger mainPageBurger = open(urlMainPage, PageObject.MainPageBurger.class);
 
         //Кликнуть кнопку "Личный кабинет"
         LoginBurgerPage loginBurgerPage = mainPageBurger.clickButtonPersonalAreaLogPage();
@@ -112,15 +103,11 @@ public class LoginTest extends TestParent {
 
         //авторизация пользователя
         mainPageBurger = loginBurgerPage.loginUser(email, password);
-
-        try{
-            Thread.sleep(10000);
-        }
-        catch (Exception e){}
+        mainPageBurger.getDoOrderButton().shouldBe(Condition.visible);
 
         //проверка, что открыта нужная страница
-        Assert.assertEquals(mainPageBurger.getUrl(), "https://stellarburgers.nomoreparties.site/");
-        WebDriverRunner.driver().close();
+        Assert.assertEquals(mainPageBurger.getUrl(), urlMainPage);
+
     }
 
     @Test
@@ -134,7 +121,7 @@ public class LoginTest extends TestParent {
         accessToken = response.body().as(UserCreate.class).getAccessToken();
 
         //открывается страница и создается экземпляр класса страницы
-        MainPageBurger mainPageBurger = open("https://stellarburgers.nomoreparties.site/", PageObject.MainPageBurger.class);
+        MainPageBurger mainPageBurger = open(urlMainPage, PageObject.MainPageBurger.class);
 
         //Кликнуть кнопку "Личный кабинет"
         LoginBurgerPage loginBurgerPage = mainPageBurger.clickButtonPersonalAreaLogPage();
@@ -147,14 +134,10 @@ public class LoginTest extends TestParent {
 
         //авторизация пользователя
         mainPageBurger = loginBurgerPage.loginUser(email, password);
-
-        try{
-            Thread.sleep(10000);
-        }
-        catch (Exception e){}
+        mainPageBurger.getDoOrderButton().shouldBe(Condition.visible);
 
         //проверка, что открыта нужная страница
-        Assert.assertEquals(mainPageBurger.getUrl(), "https://stellarburgers.nomoreparties.site/");
-        WebDriverRunner.driver().close();
+        Assert.assertEquals(mainPageBurger.getUrl(), urlMainPage);
+
     }
 }

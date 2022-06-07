@@ -3,8 +3,6 @@ import PageObject.LoginBurgerPage;
 import PageObject.MainPageBurger;
 import client.StepsForDelete;
 import client.StepsForPost;
-import com.codeborne.selenide.Selenide;
-import com.codeborne.selenide.WebDriverRunner;
 import com.github.javafaker.Faker;
 import io.qameta.allure.Description;
 import io.qameta.allure.junit4.DisplayName;
@@ -38,13 +36,10 @@ public class PersonalAreaTransitionTest extends TestParent {
         accessToken = response.body().as(UserCreate.class).getAccessToken();
 
         //открывается страница и создается экземпляр класса страницы
-        MainPageBurger mainPageBurger = open("https://stellarburgers.nomoreparties.site/", PageObject.MainPageBurger.class);
+        MainPageBurger mainPageBurger = open(urlMainPage, PageObject.MainPageBurger.class);
 
         //кликнуть по кнопке "Войти в аккаунт"
-        mainPageBurger.clickButtonSignIn();
-
-        //открывается страница авторизации и создается экземпляр класса страницы
-        LoginBurgerPage loginBurgerPage = open("https://stellarburgers.nomoreparties.site/login", PageObject.LoginBurgerPage.class);
+        LoginBurgerPage loginBurgerPage = mainPageBurger.clickButtonSignIn();
 
         //авторизация пользователя
         loginBurgerPage.loginUser(email, password);
@@ -56,8 +51,7 @@ public class PersonalAreaTransitionTest extends TestParent {
         accountProfilePage.clickButtonConstructor();
 
         //проверка, что открыта нужная страница
-        Assert.assertEquals(mainPageBurger.getUrl(), "https://stellarburgers.nomoreparties.site/");
-        WebDriverRunner.driver().close();
+        Assert.assertEquals(mainPageBurger.getUrl(), urlMainPage);
     }
 
     @Test
@@ -71,7 +65,7 @@ public class PersonalAreaTransitionTest extends TestParent {
         accessToken = response.body().as(UserCreate.class).getAccessToken();
 
         //открывается страница и создается экземпляр класса страницы
-        MainPageBurger mainPageBurger = open("https://stellarburgers.nomoreparties.site/", PageObject.MainPageBurger.class);
+        MainPageBurger mainPageBurger = open(urlMainPage, PageObject.MainPageBurger.class);
 
         //кликнуть по кнопке "Войти в аккаунт"
         LoginBurgerPage loginBurgerPage = mainPageBurger.clickButtonSignIn();
@@ -86,7 +80,6 @@ public class PersonalAreaTransitionTest extends TestParent {
         accountProfilePage.clickLogoStellar();
 
         //проверка, что открыта нужная страница
-        Assert.assertEquals(mainPageBurger.getUrl(), "https://stellarburgers.nomoreparties.site/");
-        WebDriverRunner.driver().close();
+        Assert.assertEquals(mainPageBurger.getUrl(), urlMainPage);
     }
 }

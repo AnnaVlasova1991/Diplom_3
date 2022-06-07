@@ -81,4 +81,8 @@ public class LoginBurgerPage {
     public SelenideElement getButtonIn(){
         return buttonIn;
     }
+
+    public SelenideElement getButtonLogin() {
+        return buttonLogin;
+    }
 }
